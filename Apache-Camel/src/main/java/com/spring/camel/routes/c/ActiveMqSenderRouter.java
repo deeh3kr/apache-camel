@@ -5,16 +5,24 @@ import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
 
 @Slf4j
-@Component
+//@Component
 public class ActiveMqSenderRouter extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         //timer
-        from("timer:active-mq-timer?period=10000")  //every 10 sec
-                .transform().constant("MyMessage for Active MQ")
-                .log("${body}")
-                .to("activemq:my-activemq-queue");
+//        from("timer:active-mq-timer?period=10000")  //every 10 sec
+//                .transform().constant("MyMessage for Active MQ")
+//                .log("${body}")
+//                .to("activemq:my-activemq-queue");
         //queue
+
+//        from("file:files/json")  //every 10 sec
+//                .log("${body}")
+//                .to("activemq:my-activemq-queue");
+
+        from("file:files/xml")  //every 10 sec
+                .log("${body}")
+                .to("activemq:my-activemq-xml-queue");
 
     }
 }
