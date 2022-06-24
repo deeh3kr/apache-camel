@@ -24,7 +24,10 @@ public class MyFirstTimerRouter extends RouteBuilder {
         //transform the data
         //save into DB (here we log)
 
+    //    getCamelContext().setAutoStartup(false);  //it will prevent auto start of below routes after Bean creation
+
         from("timer:first-timer")
+                .routeId("First-Timer-Route")
 
         //        .transform().constant("My Constant Message")
         //        .transform().constant("Time is: " + LocalDateTime.now())

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
-//@Component
+@Component
 @Slf4j
 public class MyFileRoute extends RouteBuilder {
 
@@ -20,6 +20,9 @@ public class MyFileRoute extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
+
+       // getCamelContext().setAutoStartup(false);
+
         from("file:files/input")
                 .routeId("Files-Input-Route")
                 .transform().body(String.class)
@@ -33,16 +36,16 @@ public class MyFileRoute extends RouteBuilder {
                     .log("Not JSON or XML File")
                 .end()
                 .log("${body}")
-             //   .to("direct://log-file-values")
-                .to("file:files/output");
+                .to("direct://log-file-values");
+            //    .to("file:files/output");
 
         //Below is a reusable Route
         from("direct:log-file-values")
-                .log(" MessageHistory: ${messageHistory} \nAbsolutePath: ${file:absolute.path}")
-                .log(" FileName: ${file:name} \nFileExtension: ${file:name.ext} \nName.Noext: ${file:name.noext} \nOnlyName: ${file:onlyname}")
+                .log(" \nMessageHistory: ${messageHistory} \nAbsolutePath: ${file:absolute.path}")
+                .log(" \nFileName: ${file:name} \nFileExtension: ${file:name.ext} \nName.Noext: ${file:name.noext} \nOnlyName: ${file:onlyname}")
                 .log(" \nParent: ${file:parent} \nFilePath: ${file:path} \nFileAbsolute: ${file:absolute}")
-                .log(" FileSize: ${file:size} \nFileModified: ${file:modified}")
-                .log(" RouteId: ${routeId} \nCamelId: ${camelId} \nBody: ${body}");
+                .log(" \nFileSize: ${file:size} \nFileModified: ${file:modified}")
+                .log(" \nRouteId: ${routeId} \nCamelId: ${camelId} \nBody: ${body}");
     }
 }
 
